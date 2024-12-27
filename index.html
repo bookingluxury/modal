@@ -60,7 +60,7 @@
   <div class="snowflakes">
   </div>
   <script>
-
+localStorage.clear();
   document.addEventListener("DOMContentLoaded", () => {
       const snowContainer = document.querySelector(".snowflakes");
       const maxSnowflakes = 10; // Giảm số lượng hạt tuyết xuống 10
@@ -96,6 +96,205 @@
 
 </html>
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Modal Vị Trí</title>
+  <style>
+    /* Toàn màn hình modal */
+    #locationModal {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(10px); /* Làm mờ nền */
+      background: rgba(0, 0, 0, 0.6); /* Nền tối */
+      z-index: 9999;
+      opacity: 0;
+      transform: scale(1.1);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    #locationModal.active {
+      display: flex;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Nội dung modal */
+    .custom-modal-content {
+      background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Gradient bắt mắt */
+      color: white;
+      text-align: center;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      position: relative;
+      animation: fadeIn 0.8s ease; /* Hiệu ứng xuất hiện */
+      width: 90%;
+      max-width: 850px;
+    }
+
+    /* Tiêu đề */
+    .custom-modal-content h2 {
+      margin-bottom: 15px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    /* Mô tả */
+    .custom-modal-content p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+
+    /* Nút */
+    .modal-button {
+      padding: 10px 25px;
+      background: rgb(60, 255, 0);
+      color: #000000;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .modal-button:hover {
+      background: #ff3300;
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .modal-button:active {
+      transform: scale(0.95);
+    }
+
+    /* Hiển thị tọa độ */
+    #locationDisplay {
+      display: none;
+      
+      bottom: 20px;
+      right: 20px;
+     
+      color: white;
+    
+      
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      z-index: 9999;
+      animation: fadeIn 0.5s ease;
+    }
+
+    /* Nội dung trong hộp hiển thị */
+    #locationDisplay p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    /* Nút đóng trong hộp hiển thị */
+    .close-button {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      background: none;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .close-button:hover {
+      color: #ffcccc;
+    }
+
+  
+  </style>
+</head>
+<body>
+  <!-- Modal -->
+  <div id="locationModal" class="custom-modal">
+    <div class="custom-modal-content">
+      <h2>📍 Bật Vị Trí</h2>
+      <p>Chúng tôi cần truy cập vị trí của bạn để cung cấp dịch vụ chính xác nhất.</p>
+      <button class="modal-button" onclick="requestLocation()">Cho phép</button>
+    </div>
+  </div>
+
+  <!-- Hiển thị tọa độ -->
+  <div id="locationDisplay">
+    
+    <p id="locationText">Vị trí đang được tải...</p>
+  </div>
+
+
+  <script>
+    function requestLocation() {
+      const locationModal = document.getElementById('locationModal');
+      const locationDisplay = document.getElementById('locationDisplay');
+      const locationText = document.getElementById('locationText');
+      const content = document.getElementById('content');
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+
+            // Lưu vị trí vào localStorage
+            localStorage.setItem('userLocation', JSON.stringify({ latitude, longitude }));
+            console.log('Tọa độ:', { latitude, longitude });
+
+            // Hiển thị thông tin vị trí
+            locationText.innerHTML = `<strong>Latitude:</strong> ${latitude.toFixed(6)}, <strong>Longitude:</strong> ${longitude.toFixed(6)}`;
+            locationDisplay.style.display = 'block';
+
+            // Ẩn modal và hiển thị nội dung chính
+            locationModal.classList.remove('active');
+            content.style.display = 'block';
+          },
+          (error) => {
+            console.error('Lỗi khi lấy tọa độ:', error.message);
+            alert('Không thể lấy vị trí. Hãy thử lại.');
+          }
+        );
+      } else {
+        alert('Trình duyệt không hỗ trợ định vị.');
+      }
+    }
+
+    function closeLocationDisplay() {
+      const locationDisplay = document.getElementById('locationDisplay');
+      locationDisplay.style.display = 'none';
+    }
+
+    window.onload = function () {
+      const savedLocation = localStorage.getItem('userLocation');
+      const locationModal = document.getElementById('locationModal');
+      const locationDisplay = document.getElementById('locationDisplay');
+      const locationText = document.getElementById('locationText');
+      const content = document.getElementById('content');
+
+      if (savedLocation) {
+        const { latitude, longitude } = JSON.parse(savedLocation);
+        locationText.innerHTML = `<strong>Latitude:</strong> ${latitude.toFixed(6)}, <strong>Longitude:</strong> ${longitude.toFixed(6)}`;
+        locationDisplay.style.display = 'block';
+        content.style.display = 'block';
+      } else {
+        locationModal.classList.add('active');
+      }
+    };
+  </script>
+</body>
+</html>
 
 
 
