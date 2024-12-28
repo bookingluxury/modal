@@ -61,6 +61,8 @@
   </div>
   <script>
 
+
+
   document.addEventListener("DOMContentLoaded", () => {
       const snowContainer = document.querySelector(".snowflakes");
       const maxSnowflakes = 10; // Giảm số lượng hạt tuyết xuống 10
@@ -96,12 +98,11 @@
 
 </html>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Modal Vị Trí</title>
   <style>
     /* Toàn màn hình modal */
@@ -295,6 +296,7 @@
   </script>
 </body>
 </html>
+
 
 
 
@@ -2524,8 +2526,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   <head>
     <meta charset="UTF-8">
-       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live 18+ Section</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -9535,10 +9536,10 @@ h3 {
 }
 .ranking-name {
     font-family: 'Arial', sans-serif; /* Thay Montserrat bằng font tự nhiên hơn */
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     color: #f3f3f3;
-    padding: 4px 8px;
+    padding: 5px 10px;
     border-radius: 5px;
     background: rgba(0, 0, 0, 0.6); /* Nền tối mờ */
     box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.05);
@@ -10127,7 +10128,7 @@ function showCharacterInfo(index) {
     return data.reply; // Trả lại phản hồi từ server (tùy chỉnh nếu cần)
   } catch (error) {
     console.error("Lỗi khi gửi tin nhắn:", error);
-    return "Có lỗi xảy ra khi gửi tin nhắn. Vui lòng thử lại sau!";
+    return "Hệ thống đang quá tải . Vui lòng thử lại sau!";
   }
 }
 
@@ -11430,17 +11431,7 @@ userInput.addEventListener("keypress", (e) => {
   }
 });
 
-    // Vô hiệu hóa chuột phải
-    document.addEventListener("contextmenu", function (e) {
-    e.preventDefault();
-  });
 
-  // Vô hiệu hóa phím F12 và các tổ hợp phím kiểm tra
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key === "I")) {
-      e.preventDefault();
-    }
-  });
   </script>
 </body>
 
