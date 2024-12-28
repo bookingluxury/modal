@@ -1660,28 +1660,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     const characterDetails = {
-      "July": {
-        name: "July",
-        status: "Hoạt Động",
-        height: "162 cm",
-        weight: "47 kg",
-        measurements: "V1: 87 - V2: 55 - V3: 91",
-        service: `
-  Cam kết phục vụ tận tình và chuyên nghiệp.
-  Em gái nuột nà, đẹp lung linh tuổi Teen.
-  Mặt xinh như tiểu thư, body sịn 100% không thẩm mỹ.
-  Thơm phức tự nhiên.
-  Phải đích mục sở thị thì mới biết.
-  Đến với bé để cảm nhận cuộc đời nhé!
-`,
 
-        duration: "⏱️ Luôn sẵn sàng",
-        images: [
-        "https://i.ibb.co/s56HByh/photo-17-2024-09-20-08-41-30.jpg","https://i.ibb.co/J5GP9FZ/photo-4-2024-09-20-08-41-30.jpg","https://i.ibb.co/NKn7g62/photo-2-2024-09-20-08-41-30.jpg","https://i.ibb.co/XSvCbdv/photo-5-2024-09-20-08-41-30.jpg","https://i.ibb.co/1MVVxSg/photo-9-2024-09-20-08-41-30.jpg","https://i.ibb.co/d55W38g/photo-15-2024-09-20-08-41-30.jpg","https://i.ibb.co/j6x96Wy/photo-18-2024-09-20-08-41-30.jpg","https://i.ibb.co/jWwdDhF/427795242-1104148964345239-7093685406088560536-n.jpg","https://i.ibb.co/tCKJvGb/photo-2024-09-05-04-54-14.jpg","https://i.ibb.co/Pr3HRMn/photo-2024-09-05-04-54-15-2.jpg",
-    
-          "https://i.ibb.co/b518sDH/Untitled-design-14.png"
-        ]
-      },
     
       "Yumi": {
         name: "Yumi",
@@ -1754,28 +1733,9 @@ document.addEventListener('DOMContentLoaded', () => {
         "https://i.ibb.co/VHhLXLq/IMG-0966.jpg","https://i.ibb.co/hDjnQSf/IMG-0969.jpg","https://i.ibb.co/nfD8Vr9/IMG-0965.jpg","https://i.ibb.co/MMxLSBv/IMG-0972.jpg","https://i.ibb.co/mBNgzmF/IMG-0967.jpg","https://i.ibb.co/RjHMhK2/1-HU7-K8-E2-U-7-S6-HVT.jpg",
   "https://i.ibb.co/tXxk2jf/1-HU7-K8-E1-J-7-S6-HVT.jpg"
       ]
-    },
     
     
-    "Mina": {
-        name: "Mina",
-        status: "Hoạt Động",
-        height: "158 cm",
-        measurements: "V1: 86 - V2: 56 - V3: 89",
-      
-        service: `
-  Bé có một dáng người mềm mại, muốn ôm mãi không thôi.
-  Gương mặt dễ thương, ngây thơ đáng yêu.
-  Kết: Bé còn chút ngại ngùng khi nói chuyện, nhưng thái độ lúc lâm trận rất nhiệt tình, chịu khó học hỏi, phối hợp các tư thế.
-`,
-
-        duration: "⏱️ Luôn sẵn sàng",
-        images: [
-          "https://i.ibb.co/FwXRmJV/367708333-959487338453907-5381194647223869853-n.jpg",
-          "https://i.ibb.co/8d3nnBZ/383337930-978863159849658-4641272384526547692-n.jpg","https://i.ibb.co/VJj95PD/381003805-978864963182811-8835941904392445166-n.jpg","https://i.ibb.co/MBpmQqb/407908628-1013974159671891-2417822945034929073-n.jpg","https://i.ibb.co/R67pZxq/423236603-1042520383483935-3619898868584313772-n.jpg","https://i.ibb.co/GQ5wry4/422974615-1042520403483933-1330128733791845372-n.jpg","https://i.ibb.co/JHKvs8V/435702528-1080279893041317-8914284036668817236-n.jpg","https://i.ibb.co/6wmMyqx/449039576-1124677385268234-7665507449582176569-n.jpg","https://i.ibb.co/8gfpCVM/449039576-1124677408601565-3024710156838684119-n.jpg","https://i.ibb.co/RjBPhXC/453315351-1144148666654439-988129998488451481-n.jpg","https://i.ibb.co/PQk7R8G/454324406-1149067806162525-7507744949658804570-n.jpg","https://i.ibb.co/vz1vNVb/456599617-1160972514972054-4029686110250322599-n.jpg","https://i.ibb.co/cQwTPdX/456603795-1160972528305386-3708613599631951145-n.jpg","https://i.ibb.co/k4GVGzH/456694132-1160972558305383-3403657865890027602-n.jpg","https://i.ibb.co/pRW0zKW/459851929-1175238350212137-3962964322160869963-n.jpg",
-          "https://i.ibb.co/v3zfwHK/462685881-1193449008391071-3934223950662475783-n.jpg",
-      
-        ]
+    
       },
       "Amy": {
         name: "Amy",
@@ -1923,6 +1883,27 @@ document.addEventListener('DOMContentLoaded', () => {
           ]
       }
     };
+    
+    
+    function resetImageGallery() {
+    imageGallery.innerHTML = '';
+    imageGallery.style.display = 'grid';
+    imageGallery.style.gridTemplateColumns = 'repeat(auto-fit, minmax(100px, 1fr))';
+    imageGallery.style.gap = '10px';
+  }
+  
+  function loadImageGallery(images) {
+    resetImageGallery();  // Reset trước khi load ảnh mới
+  
+    images.forEach(url => {
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = 'Gallery Image';
+      img.classList.add('gallery-image');
+      img.onclick = () => openModal(url);  // Gọi openModal khi click vào ảnh
+      imageGallery.appendChild(img);
+    });
+  }
     
     
     function resetImageGallery() {
@@ -5657,30 +5638,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="custom-dropdown">
       <select id="partnerSelect" required>
         <option value="">-- Chọn đối tác --</option>
-        <optgroup label="Hạng S" class="rank-s">
-           <option value="✯ THÚY VI ✯">✯ THÚY VI ✯</option>
-          <option value="❖ THẢO NGUYÊN ❖">❖ THẢO NGUYÊN ❖</option>
-
-        </optgroup>
-        
-        <optgroup label="Hạng A" class="rank-a">
-          <option value="✥ THANH TÚ ✥">✥ THANH TÚ ✥</option>
-          <option value="♔ MINH NGỌC ♔">♔ MINH NGỌC ♔</option>
-      
-          <option value="✤ LAN ANH ✤">✤ LAN ANH ✤</option>
-      
-        </optgroup>
-        <optgroup label="Hạng B" class="rank-b">
-          <option value="Lan Chi ☘">Lan Chi ☘</option>
-  <option value="♡°CẨM TÚ°♡">♡°CẨM TÚ°♡</option>
-  <option value="✦ KHÁNH NHI ✦">✦ KHÁNH NHI ✦</option>
-  <option value="Mai Ly">Mai Ly</option>
-
-        </optgroup>
-        <optgroup label="Hạng C" class="rank-c">
-          <option value="✦ NGỌC TRÂM ✦">✦ NGỌC TRÂM ✦</option>
-  <option value="♢ KIM HẠNH ♢">♢ KIM HẠNH ♢</option>
- 
+       
       </select>
     </div>
     <!-- Nhập thời gian -->
@@ -5990,7 +5948,7 @@ document.addEventListener('DOMContentLoaded', () => {
         '♚ Lâm Vy Baby ♚',  
         '✽ Diệu Thúy ✽',  
         '⚜ Ái Linh Baby ⚜',  
-        '✶ Kaya ✶',  
+        '✶ Thùy Linh ✶',  
         'ManNhi',  
         'Hà My',  
         '★ Nhiên Sakura ★',  
@@ -6007,7 +5965,7 @@ document.addEventListener('DOMContentLoaded', () => {
         '✽ Mei ✽',  
         '✧ Annie ✧',  
         '❤️ Anna ❤️',  
-        'Mina',  
+
         '✿ Luna ✿',  
         '✦ Ngọc Trâm ✦',  
         '♢ Kim Hạnh ♢',  
@@ -6037,32 +5995,26 @@ document.addEventListener('DOMContentLoaded', () => {
         '✥ Phương Trang ✥',  
         '❀ Khả Vi ❀',  
         '✧ Thiên Trúc Baby ✧',  
-        '✭ Thiên Quỳnh Baby ✭',  
+        '✭ Thiên Quỳnh ✭',  
         '✧ Hà Thanh ✧',  
         '✪ Diễm Quỳnh ✪',  
         '⌘ Uyển Chi ⌘'   
     ]   
 };  
-    // Populate dropdown với nhân vật theo xếp hạng  
-    function populatePartnerList() {  
-      const partnerSelect = document.getElementById('partnerSelect');  
-      partnerSelect.innerHTML = '<option value="">-- Chọn đối tác --</option>';  
-      
-      for (const rank in partnersByRank) {  
-        const optGroup = document.createElement('optgroup');  
-        optGroup.label = `Hạng ${rank}`;  
-        optGroup.classList.add(`rank-${rank.toLowerCase()}`);  
-        
-        partnersByRank[rank].forEach(partner => {  
-          const option = document.createElement('option');  
-          option.value = partner;  
-          option.textContent = partner;  
-          optGroup.appendChild(option);  
-        });  
-        
-        partnerSelect.appendChild(optGroup);  
-      }  
-    }  
+// Populate dropdown với nhân vật (không phân chia theo rank)
+function populatePartnerList() {
+  const partnerSelect = document.getElementById('partnerSelect');
+  partnerSelect.innerHTML = '<option value="">-- Chọn đối tác --</option>';
+  
+  // Duyệt qua tất cả các rank và lấy nhân vật
+  Object.values(partnersByRank).flat().forEach(partner => {
+    const option = document.createElement('option');
+    option.value = partner;
+    option.textContent = partner;
+    partnerSelect.appendChild(option);
+  });
+}
+
     
     // Bật vị trí để cập nhật địa điểm  
     function getCurrentLocation() {  
