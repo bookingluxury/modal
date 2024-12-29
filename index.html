@@ -10352,6 +10352,16 @@ body {
   const profileImage = document.getElementById('profileImage');
   const profileName = document.querySelector('.profile-name strong');
   const chatIcon = document.getElementById('chatIcon');
+  const selectedCharacter = JSON.parse(localStorage.getItem("selectedCharacter"));
+  if (selectedCharacter && selectedCharacter.name !== name) {
+    alert(`Bạn chỉ có thể trò chuyện với nhân vật ${selectedCharacter.name} trong phiên này.`);
+    return;
+  }
+
+  // Lưu nhân vật đã chọn vào localStorage nếu chưa có
+  if (!selectedCharacter) {
+    localStorage.setItem("selectedCharacter", JSON.stringify({ name, avatar: avatarUrl }));
+  }
 
     // Tìm nhân vật từ rankings và reserveRankings
     currentCharacter = [...rankings, ...reserveRankings].find(char => char.name === name);
@@ -10450,15 +10460,37 @@ function getTimeByLocation(latitude, longitude) {
   };
   return new Date().toLocaleTimeString("vi-VN", options);
 }
+let pendingMessages = []; // Lưu trữ tin nhắn chưa được bot phản hồi
+
+// Bộ lọc tin nhắn spam hoặc không hợp lệ
+const spamKeywords = ["...", "ok", "??", "zzz", "ahihi"];
+function isSpamMessage(message) {
+  const trimmedMessage = message.trim().toLowerCase();
+  return (
+    trimmedMessage === "" || 
+    trimmedMessage.length < 3 || 
+    spamKeywords.includes(trimmedMessage)
+  );
+}
 
 // Hàm gửi tin nhắn khi nhấn nút "Gửi"
 sendButton.addEventListener("click", async () => {
   const messageText = userInput.value.trim();
 
+  // Kiểm tra tin nhắn rỗng hoặc không hợp lệ
   if (!messageText) {
     showError("Vui lòng nhập tin nhắn trước khi gửi!");
     return;
   }
+
+  if (isSpamMessage(messageText)) {
+    showError("Tin nhắn của bạn không hợp lệ hoặc quá ngắn!");
+    userInput.value = ""; // Xóa nội dung input
+    return;
+  }
+
+  // Lưu tin nhắn vào danh sách chờ phản hồi
+  pendingMessages.push(messageText);
 
   // Lấy tọa độ từ localStorage
   const userLocation = JSON.parse(localStorage.getItem('userLocation'));
@@ -10488,6 +10520,12 @@ sendButton.addEventListener("click", async () => {
   chatContent.scrollTop = chatContent.scrollHeight;
   userInput.value = "";
 
+   // Nếu có nhiều tin nhắn chờ, không gửi ngay
+   if (pendingMessages.length > 1) {
+    return;
+  }
+
+
   // Chuyển trạng thái "Đã xem" sau 10 giây
   setTimeout(() => {
     const statusElement = userMessage.querySelector(".message-status");
@@ -10498,7 +10536,7 @@ sendButton.addEventListener("click", async () => {
   }, 10000);
 
   // Hiển thị dấu 3 chấm khi bot trả lời
-  const initialDelay = Math.random() * 5000 + 5000; // Delay ngẫu nhiên 5-10 giây
+  const initialDelay = Math.random() * 30000 + 30000; // Delay ngẫu nhiên 5-10 giây
   console.log(`⏳ Đợi ${Math.floor(initialDelay / 1000)} giây trước khi soạn tin...`);
 
   setTimeout(async () => {
@@ -10527,6 +10565,11 @@ sendButton.addEventListener("click", async () => {
     botTypingIndicator.remove(); // Xóa hiệu ứng typing
 
     try {
+
+       // Gộp các tin nhắn chưa được trả lời
+      const combinedMessage = pendingMessages.join(" | ");
+      pendingMessages = []; // Xóa danh sách chờ sau khi gửi
+
       const reply = await sendMessageToGPT(currentCharacter.name, messageText); // Gửi yêu cầu GPT
 
       // Hiển thị phản hồi từ bot
@@ -10565,6 +10608,7 @@ userInput.addEventListener("keypress", (e) => {
     sendButton.click();
   }
 });
+
   // Vô hiệu hóa chuột phải
   document.addEventListener("contextmenu", function (e) {
     e.preventDefault();
@@ -10579,5 +10623,5 @@ userInput.addEventListener("keypress", (e) => {
 
   </script>
 </body>
-
 </html>
+ 
