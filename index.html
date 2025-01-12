@@ -703,22 +703,22 @@ checkLocation();
       <div class="stat-item">
         <i class="fas fa-check-circle"></i>
         <span>Đã dùng dịch vụ</span>
-        <strong id="vipMembers">3887</strong>
+        <strong id="vipMembers">4197</strong>
       </div>
       <div class="stat-item">
         <i class="fas fa-chart-line"></i>
         <span>Tổng lượt truy cập</span>
-        <strong id="visitCount">146483</strong>
+        <strong id="visitCount">218483</strong>
       </div>
       <div class="stat-item time-box">
         <i class="fas fa-clock"></i>
         <span>Thời gian còn lại:</span>
-        <strong id="userTime">20:00</strong>
+        <strong id="userTime">60:00</strong>
       </div>
     </div>
     
     <script>
-       const MAX_TIME = 60 * 60; // 60 phút = 3600 giây
+   const MAX_TIME = 60 * 60; // 60 phút = 3600 giây
 let remainingTime = parseInt(localStorage.getItem("remainingTime")) || MAX_TIME;
 let online = parseInt(localStorage.getItem("online")) || 204;
 let vipMembers = parseInt(localStorage.getItem("vipMembers")) || 4917;
