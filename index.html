@@ -115,8 +115,27 @@
         setTimeout(createSnowflake, i * 1000); // Tạo cách nhau 1 giây
       }
     });
-	    const audio = document.querySelector("audio");
-    audio.volume = 0.5; // Đặt âm lượng ban đầu (0.5 = 50%)
+
+	  
+    const audio = document.getElementById("background-music");
+
+// Kiểm tra xem có thời gian được lưu trong LocalStorage không
+const savedTime = parseFloat(localStorage.getItem("musicCurrentTime"));
+
+// Đảm bảo không gán thời gian nếu không hợp lệ
+if (!isNaN(savedTime)) {
+  audio.currentTime = savedTime; // Gán thời gian lưu trước đó
+}
+
+// Khi nhạc phát, lưu thời gian hiện tại vào LocalStorage
+audio.addEventListener("timeupdate", () => {
+  localStorage.setItem("musicCurrentTime", audio.currentTime);
+});
+
+// Xử lý khi người dùng tải lại trang hoặc dừng nhạc
+window.addEventListener("beforeunload", () => {
+  localStorage.setItem("musicCurrentTime", audio.currentTime);
+});
   </script>
 </body>
 
