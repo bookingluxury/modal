@@ -599,7 +599,7 @@ checkLocation();
 
 
 
-  <!DOCTYPE html>
+ <!DOCTYPE html>
   <html lang="vi">
 
   <head>
@@ -698,30 +698,30 @@ checkLocation();
       <div class="stat-item">
         <i class="fas fa-user-circle"></i>
         <span>Online</span>
-        <strong id="online">204</strong>
+        <strong id="online"></strong>
       </div>
       <div class="stat-item">
         <i class="fas fa-check-circle"></i>
         <span>Đã dùng dịch vụ</span>
-        <strong id="vipMembers">4197</strong>
+        <strong id="vipMembers"></strong>
       </div>
       <div class="stat-item">
         <i class="fas fa-chart-line"></i>
         <span>Tổng lượt truy cập</span>
-        <strong id="visitCount">218483</strong>
+        <strong id="visitCount"></strong>
       </div>
       <div class="stat-item time-box">
         <i class="fas fa-clock"></i>
         <span>Thời gian còn lại:</span>
-        <strong id="userTime">60:00</strong>
+        <strong id="userTime"></strong>
       </div>
     </div>
     
     <script>
-   const MAX_TIME = 60 * 60; // 60 phút = 3600 giây
+const MAX_TIME = 60 * 60; // 60 phút = 3600 giây
 let remainingTime = parseInt(localStorage.getItem("remainingTime")) || MAX_TIME;
 let online = parseInt(localStorage.getItem("online")) || 204;
-let vipMembers = parseInt(localStorage.getItem("vipMembers")) || 4917;
+let vipMembers = parseInt(localStorage.getItem("vipMembers")) || 4197;
 let visitCount = parseInt(localStorage.getItem("visitCount")) || 218483;
 
 function resetDailyTime() {
@@ -753,8 +753,9 @@ function updateRemainingTime() {
 }
 
 function updateOnline() {
-  const change = Math.floor(Math.random() * 41) - 20; // Dao động từ -20 đến +20
-  online = Math.max(200, online + change); // Không cho online < 200
+  const change = Math.floor(Math.random() * 11) + 10; // Dao động từ 10 đến 20
+  const increaseOrDecrease = Math.random() < 0.5 ? -1 : 1; // Ngẫu nhiên tăng hoặc giảm
+  online = Math.max(100, Math.min(250, online + (change * increaseOrDecrease))); // Giới hạn từ 100 đến 250
   document.getElementById("online").innerText = online.toLocaleString();
   localStorage.setItem("online", online);
 }
@@ -798,11 +799,14 @@ function formatTime(seconds) {
   return `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
 }
 
+
     </script>
     
   </body>
   
   </html>
+
+
 
 
   <!DOCTYPE html>
